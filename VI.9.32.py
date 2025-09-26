@@ -31,17 +31,17 @@ def newton_polynomial(x_data, coef, x):
 # Вычисляем коэффициенты разделенных разностей
 coef_a = divided_differences(x_a, y_a)
 
-# Вычисляем f(5.25)
+# Вычисляем f(2010)
 x_val = 2010
-f_5_25 = newton_polynomial(x_a, coef_a, x_val)
+f_2010 = newton_polynomial(x_a, coef_a, x_val)
 
-# Табличное значение f(5.25)
+# Табличное значение f(2010)
 true_value = 308745538
-error = abs(true_value - f_5_25)
+error = abs(true_value - f_2010)
 
 # Вывод результатов
-print(f"Вычисленное значение f(2010) = {f_5_25}")
-print(f"Табличное значение f(2010) = {true_value}")
+print(f"Вычисленное значение (интерполяция Ньютона) f(2010) = {f_2010}")
+print(f"Точное значение f(2010) = {true_value}")
 print(f"Погрешность экстраполяции в данной точке = {error}")
 
 # Построение графика интерполяции
@@ -56,3 +56,39 @@ plt.ylabel("f(x)")
 plt.title("Интерполяция Ньютона")
 plt.grid()
 plt.show()
+
+# Вычисление коэффициентов прямых
+def lin_spline_interp_coef(x, y):
+    coef = []
+    for i in range(1, len(x)):
+        coef.append([(y[i] - y[i-1]) / (x[i] - x[i-1]), (y[i-1] * x[i] - y[i] * x[i-1]) / (x[i] - x[i-1])])
+    return coef
+
+
+# Вычисляем коэффициенты разделенных разностей
+coef_b = lin_spline_interp_coef(x_a, y_a)
+
+# Вычисляем f(2010)
+x_val = 2010
+f_2010 = coef_b[-1][0] * x_val + coef_b[-1][1]
+
+# Табличное значение f(2010)
+true_value = 308745538
+error = abs(true_value - f_2010)
+
+# Вывод результатов
+print(f"Вычисленное значение (сплайны) f(2010) = {f_2010}")
+print(f"Точное значение f(2010) = {true_value}")
+print(f"Погрешность экстраполяции в данной точке = {error}")
+
+# Построение графика интерполяции (Matplotlib автоматически соединяет точки прямыми)
+plt.plot(x_a, y_a, label="Кусочно-линейная интерполяция сплайнами")
+plt.scatter(x_a, y_a, color='red', label="Узлы интерполяции")
+plt.legend()
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Кусочно-линейная интерполяция сплайнами")
+plt.grid()
+plt.show()
+
+# Вывод: кусочно-линейная интерполяция сплайнами оказалась точнее, чем полиномом Ньютона.
