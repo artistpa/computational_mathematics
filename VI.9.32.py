@@ -77,7 +77,7 @@ true_value = 308745538
 error = abs(true_value - f_2010)
 
 # Вывод результатов
-print(f"Вычисленное значение (сплайны) f(2010) = {f_2010}")
+print(f"Вычисленное значение (кусочно-линейный сплайн) f(2010) = {f_2010}")
 print(f"Точное значение f(2010) = {true_value}")
 print(f"Погрешность экстраполяции в данной точке = {error}")
 
@@ -91,4 +91,50 @@ plt.title("Кусочно-линейная интерполяция сплайн
 plt.grid()
 plt.show()
 
-# Вывод: кусочно-линейная интерполяция сплайнами оказалась точнее, чем полиномом Ньютона.
+# Кубический сплайн
+
+from scipy.linalg import solveh_banded
+
+def cubic_spline(x, f):
+    h = np.diff(x)
+    n = len(h)
+    df = np.diff(f) / h # Разделенные разности
+    ab = np.zeros((2, n+1))
+    b = np.zeros(n+1)
+    ab[0, :n] = 2 / h
+    ab[0, 1:] += 2 / h
+    ab[1, :n] = 1 / h
+    b[:n] = 3 * df / h; b[1:] += 3 * df / h
+    return solveh_banded(ab, b, lower=True)
+
+def hermite(f1,m1,f2,m2,x1,x2,x):
+    h = x2-x1
+    fd = (f2-f1)/h
+    dx = x-x2
+    return f2+m2*dx+(-3*fd+m1+2*m2)*dx**2/h + (m1+m2-2*fd)*dx**3/h**2
+
+m = cubic_spline(x_a, y_a)
+for i in range(1, len(m)):
+    x = np.linspace(x_a[i-1], x_a[i])
+    plt.plot(x, hermite(y_a[i-1], m[i-1], y_a[i], m[i], x_a[i-1], x_a[i], x), 'b', lw=2)
+plt.plot(x_a, y_a, 'g.', ms=10)
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Интерполяция кубическими сплайнами")
+plt.grid()
+plt.show()
+
+# Вычисляем f(2010)
+x_val = 2010
+f_2010 = hermite(y_a[len(m)-2], m[len(m)-2], y_a[len(m)-1], m[len(m)-1], x_a[len(m)-2], x_a[len(m)-1], x_val)
+
+# Табличное значение f(2010)
+true_value = 308745538
+error = abs(true_value - f_2010)
+
+# Вывод результатов
+print(f"Вычисленное значение (кубический сплайн) f(2010) = {f_2010}")
+print(f"Точное значение f(2010) = {true_value}")
+print(f"Погрешность экстраполяции в данной точке = {error}")
+
+# Вывод: Кусочно-линейный и кубический сплайны оказалась точнее, чем интерполяция Ньютона.
