@@ -12,23 +12,23 @@ with open('x.txt', 'r') as f:
     for line in f:
         x.append(float(line.strip()))
 
-with open('y_CFL_0_0_LW.txt', 'r') as f:
+with open('y_CFL_1_0_LW.txt', 'r') as f:
     for line in f:
         y1.append(float(line.strip()))
 
-with open('y_CFL_0_5_LW.txt', 'r') as f:
+with open('y_CFL_1_5_LW.txt', 'r') as f:
     for line in f:
         y2.append(float(line.strip()))
 
-with open('y_CFL_0_10_LW.txt', 'r') as f:
+with open('y_CFL_1_10_LW.txt', 'r') as f:
     for line in f:
         y3.append(float(line.strip()))
 
-with open('y_CFL_0_15_LW.txt', 'r') as f:
+with open('y_CFL_1_15_LW.txt', 'r') as f:
     for line in f:
         y4.append(float(line.strip()))
 
-with open('y_CFL_0_18_LW.txt', 'r') as f:
+with open('y_CFL_1_18_LW.txt', 'r') as f:
     for line in f:
         y5.append(float(line.strip()))
 

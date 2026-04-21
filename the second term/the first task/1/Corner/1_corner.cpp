@@ -24,7 +24,7 @@ int main(){
     ofstream f16("y_CFL_2_18_corner.txt", ios::out);
     CFL[0] = 0.6;
     CFL[1] = 1.0;
-    CFL[2] = 1.01;
+    CFL[2] = 2.0;
     NX = int(1 + L / h);
     for (int i = 0; i < 3; i++) {
         tau = CFL[i] * h;

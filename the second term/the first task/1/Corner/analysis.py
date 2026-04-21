@@ -12,23 +12,23 @@ with open('x.txt', 'r') as f:
     for line in f:
         x.append(float(line.strip()))
 
-with open('y_CFL_0_0_corner.txt', 'r') as f:
+with open('y_CFL_2_0_corner.txt', 'r') as f:
     for line in f:
         y1.append(float(line.strip()))
 
-with open('y_CFL_0_5_corner.txt', 'r') as f:
+with open('y_CFL_2_5_corner.txt', 'r') as f:
     for line in f:
         y2.append(float(line.strip()))
 
-with open('y_CFL_0_10_corner.txt', 'r') as f:
+with open('y_CFL_2_10_corner.txt', 'r') as f:
     for line in f:
         y3.append(float(line.strip()))
 
-with open('y_CFL_0_15_corner.txt', 'r') as f:
+with open('y_CFL_2_15_corner.txt', 'r') as f:
     for line in f:
         y4.append(float(line.strip()))
 
-with open('y_CFL_0_18_corner.txt', 'r') as f:
+with open('y_CFL_2_18_corner.txt', 'r') as f:
     for line in f:
         y5.append(float(line.strip()))
 

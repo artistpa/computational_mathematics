@@ -37,8 +37,9 @@ int main(){
             for (int m = 1; m < NX - 1; m++){
                 y[n+1][m] = y[n][m] - CFL[i] * (y[n][m+1] - y[n][m-1]) / 2.0 + pow(CFL[i], 2) * (y[n][m-1] - 2 * y[n][m] + y[n][m+1]) / 2.0;
             }
-            y[n+1][0] = y[n][0] - CFL[i] * (y[n][1] - y[n][NX-1]) / 2.0 + pow(CFL[i], 2) * (y[n][NX-1] - 2 * y[n][0] + y[n][1]) / 2.0;
-            y[n+1][NX-1] = y[n][NX-1] - CFL[i] * (y[n][0] - y[n][NX-2]) / 2.0 + pow(CFL[i], 2) * (y[n][NX-2] - 2 * y[n][NX-1] + y[n][0]) / 2.0;
+            y[n+1][0] = y[n][0] - CFL[i] * (y[n][1] - y[n][NX-2]) / 2.0 + pow(CFL[i], 2) * (y[n][NX-2] - 2 * y[n][0] + y[n][1]) / 2.0;
+            y[n+1][NX-1] = y[n+1][0];
+//            y[n+1][NX-1] = y[n][NX-1] - CFL[i] * (y[n][0] - y[n][NX-2]) / 2.0 + pow(CFL[i], 2) * (y[n][NX-2] - 2 * y[n][NX-1] + y[n][0]) / 2.0;
         }
         for (int m = 0; m < NX; m++){
             if (i == 0) {
